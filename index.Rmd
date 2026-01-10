@@ -1,0 +1,206 @@
+---
+title: "Homework for Week 3"
+author: "Miranda Law"
+date: "2026-01-09"
+output: html_document
+---
+
+# Read in the data
+```{r}
+# variable for maternity mortality ratio data URL
+maternalMortalityRatio_URL = "https://github.com/DACSS-601-Data-Science-Fundamentals/hw3/raw/refs/heads/main/maternal-mortality-ratio.csv"
+
+# variable for infant mortality ratio data URL
+infantMortalityRate_URL = "https://github.com/DACSS-601-Data-Science-Fundamentals/hw3/raw/refs/heads/main/infant-mortality-rate.csv"
+
+# variable for life expectancy at birth data URL
+lifeExpectancyAtBirth_URL = "https://github.com/DACSS-601-Data-Science-Fundamentals/hw3/raw/refs/heads/main/life-expectancy-at-birth.csv"
+
+# read in maternal morality ratio CSV and have empty cells be NA
+maternalMortalityRatio = read.csv(maternalMortalityRatio_URL,na.strings = c(""))
+
+# read in infant morality ratio CSV and have empty cells be NA
+infantMortalityRate = read.csv(infantMortalityRate_URL,na.strings = c(""))
+
+# read in life expectancy at birth CSV and have empty cells be NA
+lifeExpectancyAtBirth = read.csv(lifeExpectancyAtBirth_URL,na.strings = c(""))
+```
+
+# Explore cell contents and data types
+```{r}
+# explore contents of maternalMortalityRatio
+str(maternalMortalityRatio)
+
+# explore contents of infantMortalityRate
+str(infantMortalityRate)
+
+# explore contents of lifeExpectancyAtBirth
+str(lifeExpectancyAtBirth)
+```
+
+# Clean column names
+```{r}
+# check column names of maternalMortalityRatio
+names(maternalMortalityRatio)
+
+# check column names of infantMortalityRate
+names(infantMortalityRate)
+
+# check column names of lifeExpectancyAtBirth
+names(lifeExpectancyAtBirth)
+```
+## Maternity Mortality Ratio
+```{r}
+# clean column names of maternalMortalityRatio by removing any non-alphanumeric characters
+names(maternalMortalityRatio)=gsub("[^0-9a-zA-Z]",'',names(maternalMortalityRatio))
+
+# check if the column names of maternalMortalityRatio have any leading or trailing spaces
+colnames(maternalMortalityRatio) == trimws(colnames(maternalMortalityRatio),whitespace = "[\\h\\v]")
+
+# explore contents of maternalMortalityRatio again
+str(maternalMortalityRatio)
+```
+## Infant Mortality Ratio
+```{r}
+# clean column names of infantMortalityRate by removing any non-alphanumeric characters
+names(infantMortalityRate)=gsub("[^0-9a-zA-Z]",'',names(infantMortalityRate))
+
+# check if the column names of infantMortalityRate have any leading or trailing spaces
+colnames(infantMortalityRate) == trimws(colnames(infantMortalityRate),whitespace = "[\\h\\v]")
+
+# explore contents of infantMortalityRate again
+str(infantMortalityRate)
+```
+## Life Expectancy At Birth
+```{r}
+# clean column names of lifeExpectancyAtBirth by removing any non-alphanumeric characters
+names(lifeExpectancyAtBirth)=gsub("[^0-9a-zA-Z]",'',names(lifeExpectancyAtBirth))
+
+# check if the column names of lifeExpectancyAtBirth have any leading or trailing spaces
+colnames(lifeExpectancyAtBirth) == trimws(colnames(lifeExpectancyAtBirth),whitespace = "[\\h\\v]")
+
+# explore contents of lifeExpectancyAtBirth again
+str(lifeExpectancyAtBirth)
+```
+# Select columns
+```{r}
+# save the columns we want from maternalMortalityRatio to maternalMortalityRatio_sub
+maternalMortalityRatio_sub = maternalMortalityRatio[, c("name", "deaths100", "ranking")]
+
+# save the columns we want from infantMortalityRate to infantMortalityRate_sub
+infantMortalityRate_sub = infantMortalityRate[, c("name", "deaths1", "ranking")]
+
+# save the columns we want from lifeExpectancyAtBirth to lifeExpectancyAtBirth_sub
+lifeExpectancyAtBirth_sub = lifeExpectancyAtBirth[, c("name", "years", "ranking")]
+```
+
+# Rename columns
+```{r}
+# rename the columns of maternalMortalityRatio_sub to Country, DeathsPer100k, Region
+names(maternalMortalityRatio_sub) <- c("Country", "DeathsPer100k", "Region")
+
+# check column names of maternalMortalityRatio_sub
+names(maternalMortalityRatio_sub)
+
+# rename the columns of infantMortalityRate_sub to Country, DeathsPer100k, Region
+names(infantMortalityRate_sub) <- c("Country", "DeathsPer1000", "Region")
+
+# check column names of infantMortalityRate_sub
+names(infantMortalityRate_sub)
+
+# rename the columns of lifeExpectancyAtBirth_sub to Country, DeathsPer100k, Region
+names(lifeExpectancyAtBirth_sub) <- c("Country", "Years", "Region")
+
+# check column names of lifeExpectancyAtBirth_sub
+names(lifeExpectancyAtBirth_sub)
+```
+# Explore text columns
+## Maternal Mortality Rate
+```{r}
+# show entries of the Country column in maternalMortalityRatio_sub that contain characters other than the alphabet and white spaces
+maternalMortalityRatio_sub$Country[grep("[^a-zA-Z\\s]",maternalMortalityRatio_sub$Country,perl = T)] # results show that no cleaning is needed
+
+# check for white spaces of the Country column in maternalMortalityRatio_sub
+maternalMortalityRatio_sub$Country == trimws(maternalMortalityRatio_sub$Country) # results show that there are no trailing or leading white spaces
+
+# show entries of the Region column in maternalMortalityRatio_sub that contain characters other than the alphabet and white spaces
+maternalMortalityRatio_sub$Region[grep("[^a-zA-Z\\s]",maternalMortalityRatio_sub$Region,perl = T)] # results show that no cleaning is needed
+
+# check for white spaces of the Region column in maternalMortalityRatio_sub
+maternalMortalityRatio_sub$Region == trimws(maternalMortalityRatio_sub$Region) # results show that there are no trailing or leading white spaces
+```
+## Infant Mortality Rate
+```{r}
+# show entries of the Country column in infantMortalityRate_sub that contain characters other than the alphabet and white spaces
+infantMortalityRate_sub$Country[grep("[^a-zA-Z\\s]",infantMortalityRate_sub$Country,perl = T)] # results show that no cleaning is needed
+
+# check for white spaces of the Country column in infantMortalityRate_sub
+infantMortalityRate_sub$Country == trimws(infantMortalityRate_sub$Country) # results show that there are no trailing or leading white spaces
+
+# show entries of the Region column in infantMortalityRate_sub that contain characters other than the alphabet and white spaces
+infantMortalityRate_sub$Region[grep("[^a-zA-Z\\s]",infantMortalityRate_sub$Region,perl = T)] # results show that no cleaning is needed
+
+# check for white spaces of the Region column in infantMortalityRate_sub
+infantMortalityRate_sub$Region == trimws(infantMortalityRate_sub$Region) # results show that there are no trailing or leading white spaces
+```
+## Life Expectancy At Birth
+```{r}
+# show entries of the Country column in lifeExpectancyAtBirth_sub that contain characters other than the alphabet and white spaces
+lifeExpectancyAtBirth_sub$Country[grep("[^a-zA-Z\\s]",lifeExpectancyAtBirth_sub$Country,perl = T)] # results show that no cleaning is needed
+
+# check for white spaces of the Country column in lifeExpectancyAtBirth_sub
+lifeExpectancyAtBirth_sub$Country == trimws(lifeExpectancyAtBirth_sub$Country) # results show that there are no trailing or leading white spaces
+
+# show entries of the Region column in lifeExpectancyAtBirth_sub that contain characters other than the alphabet and white spaces
+lifeExpectancyAtBirth_sub$Region[grep("[^a-zA-Z\\s]",lifeExpectancyAtBirth_sub$Region,perl = T)] # results show that no cleaning is needed
+
+# check for white spaces of the Region column in lifeExpectancyAtBirth_sub
+lifeExpectancyAtBirth_sub$Region == trimws(lifeExpectancyAtBirth_sub$Region) # results show that there are no trailing or leading white spaces
+```
+# Explore number columns
+```{r}
+# check class of the DeathsPer100k column in maternalMortalityRatio_sub
+class(maternalMortalityRatio_sub$DeathsPer100k) # results show that all entries are integers
+
+# check class of the DeathsPer1000 column in infantMortalityRate_sub # results show that all entries are numeric
+class(infantMortalityRate_sub$DeathsPer1000)
+
+# check class of the column in lifeExpectancyAtBirth_sub # results show that all entries are integers
+class(lifeExpectancyAtBirth_sub$Years)
+```
+
+# Save cleaned data
+## Maternity Mortality Ratio
+```{r}
+# save the cleaned maternalMortalityRatio_sub data as a RDS file
+saveRDS(maternalMortalityRatio_sub,"maternal-mortality-ratio.RDS")
+
+# read in the saved RDS file for maternal mortality ratio
+maternalMortalityRatio_RDS=readRDS("maternal-mortality-ratio.RDS")
+
+# explore the contents of maternalMortalityRatio_RDS
+str(maternalMortalityRatio_RDS)
+```
+## Infant Mortality Rate
+```{r}
+# save the cleaned infantMortalityRate_sub data as a RDS file
+saveRDS(infantMortalityRate_sub,"infant-mortality-rate.RDS")
+
+# read in the saved RDS file for infant mortality rate
+infantMortalityRate_RDS=readRDS("infant-mortality-rate.RDS")
+
+# explore the contents of infantMortalityRate_RDS
+str(infantMortalityRate_RDS)
+```
+## Life Expectancy At Birth
+```{r}
+# save the cleaned lifeExpectancyAtBirth_sub data as a RDS file
+saveRDS(lifeExpectancyAtBirth_sub,"life-expectancy-at-birth.RDS")
+
+# read in the saved RDS file for life expectancy at birth
+lifeExpectancyAtBirth_RDS=readRDS("life-expectancy-at-birth.RDS")
+
+# explore the contents of lifeExpectancyAtBirth_RDS
+str(lifeExpectancyAtBirth_RDS)
+```
+
