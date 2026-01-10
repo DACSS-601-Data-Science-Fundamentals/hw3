@@ -169,7 +169,7 @@ class(infantMortalityRate_sub$DeathsPer1000)
 class(lifeExpectancyAtBirth_sub$Years)
 ```
 
-# Save cleaned data
+# Save cleaned data as RDS Files
 ## Maternity Mortality Ratio
 ```{r}
 # save the cleaned maternalMortalityRatio_sub data as a RDS file
@@ -203,4 +203,37 @@ lifeExpectancyAtBirth_RDS=readRDS("life-expectancy-at-birth.RDS")
 # explore the contents of lifeExpectancyAtBirth_RDS
 str(lifeExpectancyAtBirth_RDS)
 ```
+# Save cleaned data as CSV Files
+## Maternity Mortality Ratio
+```{r}
+# save the cleaned maternalMortalityRatio_sub data as a CSV file
+write.csv(maternalMortalityRatio_sub,"cleaned-maternity-mortality-ratio.csv", row.names=FALSE)
 
+# read in the saved CSV file for maternal mortality ratio
+maternalMortalityRatio_CSV = read.csv("cleaned-maternity-mortality-ratio.csv")
+
+# explore the contents of maternalMortalityRatio_CSV
+str(maternalMortalityRatio_CSV)
+```
+## Infant Mortality Rate
+```{r}
+# save the cleaned infantMortalityRate_sub data as a CSV file
+write.csv(infantMortalityRate_sub,"cleaned-infant-mortality-rate.csv", row.names=FALSE)
+
+# read in the saved CSV file for infant mortality rate
+infantMortalityRate_CSV = read.csv("cleaned-infant-mortality-rate.csv")
+
+# explore the contents of infantMortalityRate_CSV
+str(infantMortalityRate_CSV)
+```
+## Life Expectancy At Birth
+```{r}
+# save the cleaned lifeExpectancyAtBirth_sub data as a CSV file
+write.csv(lifeExpectancyAtBirth_sub,"cleaned-life-expectancy-at-birth.csv", row.names=FALSE)
+
+# read in the saved CSV file for life expectancy at birth
+lifeExpectancyAtBirth_CSV = read.csv("cleaned-life-expectancy-at-birth.csv")
+
+# explore the contents of lifeExpectancyAtBirth_CSV
+str(lifeExpectancyAtBirth_CSV)
+```
