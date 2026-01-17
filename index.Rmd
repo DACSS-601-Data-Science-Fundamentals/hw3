@@ -91,7 +91,7 @@ maternalMortalityRatio_sub = maternalMortalityRatio[, c("name", "deaths100", "ra
 infantMortalityRate_sub = infantMortalityRate[, c("name", "deaths1", "ranking")]
 
 # save the columns we want from lifeExpectancyAtBirth to lifeExpectancyAtBirth_sub
-lifeExpectancyAtBirth_sub = lifeExpectancyAtBirth[, c("name", "years", "ranking")]
+lifeExpectancyAtBirth_sub = lifeExpectancyAtBirth[, c("name", "years", "region")]
 ```
 
 # Rename columns

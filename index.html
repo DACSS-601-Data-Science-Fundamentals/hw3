@@ -491,7 +491,7 @@ maternalMortalityRatio_sub = maternalMortalityRatio[, c(&quot;name&quot;, &quot;
 infantMortalityRate_sub = infantMortalityRate[, c(&quot;name&quot;, &quot;deaths1&quot;, &quot;ranking&quot;)]
 
 # save the columns we want from lifeExpectancyAtBirth to lifeExpectancyAtBirth_sub
-lifeExpectancyAtBirth_sub = lifeExpectancyAtBirth[, c(&quot;name&quot;, &quot;years&quot;, &quot;ranking&quot;)]</code></pre>
+lifeExpectancyAtBirth_sub = lifeExpectancyAtBirth[, c(&quot;name&quot;, &quot;years&quot;, &quot;region&quot;)]</code></pre>
 </div>
 <div id="rename-columns" class="section level1">
 <h1>Rename columns</h1>
@@ -654,19 +654,7 @@ lifeExpectancyAtBirth_sub$Country == trimws(lifeExpectancyAtBirth_sub$Country) #
 ## [226] TRUE TRUE</code></pre>
 <pre class="r"><code># show entries of the Region column in lifeExpectancyAtBirth_sub that contain characters other than the alphabet and white spaces
 lifeExpectancyAtBirth_sub$Region[grep(&quot;[^a-zA-Z\\s]&quot;,lifeExpectancyAtBirth_sub$Region,perl = T)] # results show that no cleaning is needed</code></pre>
-<pre><code>##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
-##  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
-##  [37]  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54
-##  [55]  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72
-##  [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90
-##  [91]  91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 106 107 108
-## [109] 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126
-## [127] 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144
-## [145] 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162
-## [163] 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180
-## [181] 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198
-## [199] 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216
-## [217] 217 218 219 220 221 222 223 224 225 226 227</code></pre>
+<pre><code>## character(0)</code></pre>
 <pre class="r"><code># check for white spaces of the Region column in lifeExpectancyAtBirth_sub
 lifeExpectancyAtBirth_sub$Region == trimws(lifeExpectancyAtBirth_sub$Region) # results show that there are no trailing or leading white spaces</code></pre>
 <pre><code>##   [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
@@ -744,7 +732,7 @@ str(lifeExpectancyAtBirth_RDS)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    227 obs. of  3 variables:
 ##  $ Country: chr  &quot;Monaco&quot; &quot;Singapore&quot; &quot;Macau&quot; &quot;Japan&quot; ...
 ##  $ Years  : num  89.8 86.7 85.3 85.2 84.2 84.2 84 84 83.9 83.8 ...
-##  $ Region : int  1 2 3 4 5 6 7 8 9 10 ...</code></pre>
+##  $ Region : chr  &quot;Europe&quot; &quot;East and Southeast Asia&quot; &quot;East and Southeast Asia&quot; &quot;East and Southeast Asia&quot; ...</code></pre>
 </div>
 </div>
 <div id="save-cleaned-data-as-csv-files" class="section level1">
@@ -792,7 +780,7 @@ str(lifeExpectancyAtBirth_CSV)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    227 obs. of  3 variables:
 ##  $ Country: chr  &quot;Monaco&quot; &quot;Singapore&quot; &quot;Macau&quot; &quot;Japan&quot; ...
 ##  $ Years  : num  89.8 86.7 85.3 85.2 84.2 84.2 84 84 83.9 83.8 ...
-##  $ Region : int  1 2 3 4 5 6 7 8 9 10 ...</code></pre>
+##  $ Region : chr  &quot;Europe&quot; &quot;East and Southeast Asia&quot; &quot;East and Southeast Asia&quot; &quot;East and Southeast Asia&quot; ...</code></pre>
 </div>
 </div>
 
